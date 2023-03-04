@@ -1,5 +1,9 @@
-import 'package:expenses_tracker/transaction.dart';
+import './transaction.dart';
+import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
+import './widgets/user_transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main(List<String> args) => runApp(const MyHomePage());
 
@@ -11,30 +15,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> transactions = [
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 79.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Weekly Groceries',
-      amount: 16.53,
-      date: DateTime.now(),
-    ),
-  ];
+  late String titleInput;
+  late String amountInput;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('My App'),
+          title: const Text('My App'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               width: double.infinity,
@@ -44,13 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text('CHART!'),
               ),
             ),
-            Column(
-              children: transactions.map((tx) {
-                return Card(
-                  child: Text(tx.title),
-                );
-              }).toList(),
-            ),
+            UserTransactions(),
           ],
         ),
       ),
