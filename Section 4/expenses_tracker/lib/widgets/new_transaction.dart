@@ -19,7 +19,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
   final amountController = TextEditingController();
 
-  void submitData() {
+  void _submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
 
@@ -46,7 +46,7 @@ class _NewTransactionState extends State<NewTransaction> {
               labelText: 'Title',
             ),
             controller: titleController,
-            onSubmitted: (_) => submitData,
+            onSubmitted: (_) => _submitData,
             // onChanged: (val) {
             //   titleInput = val;
             // },
@@ -57,19 +57,27 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             controller: amountController,
             keyboardType: TextInputType.number,
-            onSubmitted: (_) => submitData,
+            onSubmitted: (_) => _submitData,
             // onChanged: (val) {
             //   amountInput = val;
             // },
           ),
-          TextButton(
-            onPressed: submitData,
-            child: const Text(
-              'Add Transaction',
-              style: TextStyle(
-                color: Colors.purple,
-                fontWeight: FontWeight.bold,
-              ),
+          Row(
+            children: [
+              const Text('No Date Chosen!'),
+              TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Chose Date',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ))
+            ],
+          ),
+          ElevatedButton(
+            onPressed: _submitData,
+            child: Text('Add Transaction'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).primaryColor,
             ),
           ),
         ],

@@ -11,6 +11,11 @@ class MyApp extends StatelessWidget {
   final ThemeData theme = ThemeData(
     primarySwatch: Colors.deepPurple,
     fontFamily: 'Quicksand',
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        textStyle: TextStyle(color: Colors.white),
+      ),
+    ),
     textTheme: ThemeData.light().textTheme.copyWith(
           bodySmall: const TextStyle(
             color: Colors.black,
