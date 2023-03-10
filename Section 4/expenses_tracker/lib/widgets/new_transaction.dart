@@ -54,66 +54,73 @@ class _NewTransactionState extends State<NewTransaction> {
         _selectedDate = pickerDate;
       });
     });
-    print('...');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              decoration: const InputDecoration(
-                labelText: 'Title',
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      onVerticalDragDown: (_) => FocusScope.of(context).unfocus(),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                textCapitalization: TextCapitalization.sentences,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                ),
+                controller: _titleController,
+                onSubmitted: (_) => _submitData,
+                // onChanged: (val) {
+                //   titleInput = val;
+                // },
               ),
-              controller: _titleController,
-              onSubmitted: (_) => _submitData,
-              // onChanged: (val) {
-              //   titleInput = val;
-              // },
-            ),
-            TextField(
-              decoration: const InputDecoration(
-                labelText: 'Amount',
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: 'Amount',
+                ),
+                controller: _amountController,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                onSubmitted: (_) => _submitData,
+                // onChanged: (val) {
+                //   amountInput = val;
+                // },
               ),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitData,
-              // onChanged: (val) {
-              //   amountInput = val;
-              // },
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      _selectedDate == null
-                          ? 'No Date Chosen!'
-                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate as DateTime)}',
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _selectedDate == null
+                            ? 'No Date Chosen!'
+                            : 'Picked Date: ${DateFormat.yMd().format(_selectedDate as DateTime)}',
+                      ),
                     ),
-                  ),
-                  TextButton(
-                      onPressed: _presentDatePicker,
-                      child: const Text(
-                        'Chose Date',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ))
-                ],
+                    TextButton(
+                        onPressed: _presentDatePicker,
+                        child: const Text(
+                          'Chose Date',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ))
+                  ],
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: _submitData,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
+              ElevatedButton(
+                onPressed: _submitData,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
+                child: const Text('Add Transaction'),
               ),
-              child: const Text('Add Transaction'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
